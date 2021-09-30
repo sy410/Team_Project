@@ -70,6 +70,14 @@ function inCheck() {
 </script>
 </head>
 <body>
+<ul class="nav nav-tabs ">
+  <li class="nav-item">
+    <a class="nav-link active" href="loginf">일반회원</a>
+  </li>
+   <li class="nav-item">
+    <a class="nav-link"  href="cloginf">사업자회원</a>
+  </li>
+</ul>
 <div class="container-fluid px-3">     
 	<div class="row min-vh-100">
 		<div class="col-md-8 col-lg-6 col-xl-5 d-flex align-items-center">

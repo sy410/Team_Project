@@ -58,4 +58,11 @@ public class HomeController {
 		mv.setViewName("aboardf");
 		return mv;
 	} //Board
+	
+	// ** AjaxTest Main Form	
+	@RequestMapping(value = "/ajoinf")
+	public ModelAndView ajoinf(ModelAndView mv) {
+		mv.setViewName("ajoinForm");
+		return mv;
+	} //ajoinForm
 }//class

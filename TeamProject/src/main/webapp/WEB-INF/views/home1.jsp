@@ -43,7 +43,6 @@ function setClock() {
 <c:if test="${loginID == null}">
 	<a href="loginf">일반회원 로그인</a>&nbsp;&nbsp;
 	<a href="joinf">일반회원 회원가입</a>&nbsp;&nbsp;
-	<a href="ajoinf">통합회원가입</a>&nbsp;&nbsp;
 </c:if>
 <c:if test="${loginID != null}">
 	<a href="paccountf">회원MyPage</a>&nbsp;&nbsp;

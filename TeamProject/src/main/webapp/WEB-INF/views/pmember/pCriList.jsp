@@ -170,6 +170,14 @@ $(function() {
           </div>
         </div>
       </nav>
+<ul class="nav nav-tabs ">
+  <li class="nav-item">
+    <a class="nav-link active" href="loginf">일반회원</a>
+  </li>
+   <li class="nav-item">
+    <a class="nav-link" href="cchecklist">사업자회원</a>
+  </li>
+</ul>
       <!-- /Navbar -->
     </header>
     <section class="py-5">
