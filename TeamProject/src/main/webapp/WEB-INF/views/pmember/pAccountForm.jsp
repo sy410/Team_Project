@@ -157,10 +157,10 @@
         <!-- Breadcrumbs -->
         <ol class="breadcrumb ps-0  justify-content-start">
           <li class="breadcrumb-item"><a href="home">Home</a></li>
-          <li class="breadcrumb-item active">Your account   </li>
+          <li class="breadcrumb-item active">Mypage</li>
         </ol>
-        <h1 class="hero-heading mb-0">Your account</h1>
-        <p class="text-muted mb-5">Manage your account and settings here.</p>
+        <h1 class="hero-heading mb-0">MYPAGE</h1>
+        <p class="text-muted mb-5"></p>
         <div class="row">
           <div class="col-6 col-md-4 mb-30px">
             <div class="card h-100 border-0 shadow hover-animate">
