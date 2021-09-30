@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="one.mapper.QnaMapper">
+
+<!-- select * from review where title LIKE '%Java%'  --> 
+<sql id="search">
+  <if test="keyword != null">
+  	<bind name="keyVal" value="'%'+keyword+'%'"/>
+  </if>	
+  <choose>
+  	<when test="searchType=='t'.toString()">
+  		and bqtitle Like #{keyVal} )
+  		<!-- and title Like  CONCAT('%',CONCAT(#{keyword},'%')) -->
+  	</when>
+  	<when test="searchType=='w'.toString()">
+  		and id Like #{keyVal} )
+  	</when>
+  	<when test="searchType=='tw'.toString()">
+  		and bqtitle Like  '%' || #{keyword} || '%' 
+  		or  id  Like  '%' || #{keyword} || '%')
+  	</when>
+  
+  	<otherwise>)</otherwise> 
+  </choose>
+</sql>
+
+	<select id="searchRowsCount" resultType="int">
+	<![CDATA[
+		select count(*) from qna where ( bqno > 0 ]]>
+		<include refid="search"></include>
+		<!-- 조건문의 id : search -->
+	</select>
+
+	<select id="searchList" resultType="vo.QnaVO">
+	<![CDATA[
+		select bqno,bqtitle,id,bqdate,root,step,indent from 
+		(select q.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from qna q
+		where  bqno > 0 ]]>
+		<include refid="search"></include>
+		<!-- 조건문의 id : search -->
+		where rnum between #{sno} and #{eno}
+	</select> 
+	
+<!-- ** 답글입력 ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
+	<update id="stepUpdate">
+		update qna set step=step+1 where root=#{root} and step>=#{step}
+	</update>
+	<insert id="replyInsert">
+		<selectKey keyProperty="bqno" resultType="int" order="BEFORE">
+			select nvl(max(bqno),0)+1 from qna
+		</selectKey>
+		insert into qna values (
+		#{bqno},#{bqtitle},#{id},#{bqcontent},SYSDATE,0,#{root},#{step},#{indent})
+	</insert>	
+
+<!-- ** qna List ~~~~~~~~~~~~~~~~~~~~~~-->
+	<select id="totalRowCount" resultType="int">
+		select count(*) from qna
+	</select>
+	
+	<select id="pageList" resultType="vo.QnaVO">
+		select bqno,bqtitle,id,bqdate,root,step,indent from 
+		(select q.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from qna q) 
+		where rnum between #{sno} and #{eno}
+	</select>
+	
+	<select id="reviewList" resultType="vo.QnaVO">
+		select bqno,bqtitle,id,bqdate,root,step,indent from 
+		(select q.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from qna q) 
+		where rnum between #{sno} and #{eno}
+	</select>
+
+	<select id="selectList" resultType="vo.QnaVO">
+		select bqno,bqtitle,id,bqdate,root,step,indent from 
+		qna order by root desc, step asc
+	</select>
+	
+	<select id="selectOne" resultType="vo.QnaVO">
+		select * from qna where bqno = #{bqno}
+	</select>
+<!-- 원글 입력 
+** selectKey Test         
+-->
+	<insert id="insert">
+		<selectKey keyProperty="bqno" resultType="int" order="BEFORE">
+			select nvl(max(bqno),0)+1 from qna
+		</selectKey>
+		insert into qna values ( 
+			#{bqno},#{bqtitle},#{id},#{bqcontent},#{bqpw},SYSDATE,0,
+			#{bqno},0,0)
+	</insert>
+	
+	<delete id="delete">
+		delete from qna where bqno=#{bqno}	
+	</delete>
+
+</mapper>  
+  

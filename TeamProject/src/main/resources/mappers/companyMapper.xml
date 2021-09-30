@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="one.mapper.CompanyMapper">
+
+<!-- ** 검색기능있는 PageList 
+	<select id="checkList" resultType="vo.CompanyVO">
+		select * from company where ctype in 
+		<foreach collection="check" item="it" open="(" close=")" separator=",">
+			#{it}
+		</foreach>
+		order by cno asc
+	</select> -->
+
+
+
+<sql id="search">
+  <if test="keyword != null">
+  	<bind name="keyVal" value="'%'+keyword+'%'"/>
+  </if>	
+  <choose>
+  	<when test="searchType=='i'.toString()">
+  		and id Like #{keyVal} )
+  	</when>
+  	<when test="searchType=='a'.toString()">
+  		and name Like #{keyVal} )
+  	</when>
+  	<when test="searchType=='l'.toString()">
+  		and lev Like #{keyVal} )
+  	</when>
+  	<when test="searchType=='r'.toString()">
+  		and rid Like #{keyVal} )
+  	</when>
+  	<when test="searchType=='b'.toString()">
+  		and birthd Like #{keyVal} )
+  	</when>
+  	<when test="searchType=='ia'.toString()">
+  		and id Like #{keyVal}
+  		or  name Like #{keyVal} )
+  	</when>
+  	<otherwise>)</otherwise> 
+  </choose>
+</sql>
+<!-- ** PageList 2. searchList 기능 ( Sql문 추가 )  -->
+	<select id="searchRowsCount" resultType="int">
+	<![CDATA[
+		select count(*) from company where ( cno <> '00000000' ]]>
+		<include refid="search"></include>
+	</select>
+
+	<select id="pageList" resultType="vo.CompanyVO">
+		select cno, cpw,cname,
+		DECODE(ctype,'A','맛집','B','도서관','C','카페','D','팝업스토어','E','전치','F','축제','기타') ctype,
+		cinfo,caddr,cdate,cdate_s,cdate_e,period_s,
+		period_e,ctel,cprice,csite,cpark,comUploadfile from
+		select c.* , ROW_NUMBER() OVER(order by cno) rnum from company c where cno !='0000000000')
+		where rnum between #{sno} and #{eno}
+	</select>
+
+
+
+	<select id="selectList" resultType="vo.CompanyVO">
+		select * from company where cno != '0000000000' order by cno
+	</select>
+	
+	<select id="selectOne" resultType="vo.CompanyVO">
+		select * from company where cno = #{cno}
+	</select>
+
+	<insert id="insert">
+		insert into company values(
+		#{cno},#{cpw},#{cname},#{ctype},#{cinfo},#{caddr},#{cdate},#{cdate_s},#{cdate_e},
+		#{period_s},#{period_e},#{ctel},#{cprice},#{csite},#{cpark},#{comUploadfile})
+	</insert>
+	
+	<update id="update">
+		update company set cpw=#{cpw}, cname=#{cname}, ctype=#{ctype}, cinfo=#{cinfo}, caddr=#{caddr}
+		, cdate=#{cdate}, cdate_s=#{cdate_s}, cdate_e=#{cdate_e}, period_s=#{period_s}, period_e=#{period_e}, ctel=#{ctel}
+		, cprice=#{cprice}, csite=#{csite}, cpark=#{cpark}, comUploadfile=#{comUploadfile} where cno=#{cno}
+	</update>
+	
+	<delete id="delete">
+		delete from company where cno=#{cno}	
+	</delete>
+
+</mapper>  

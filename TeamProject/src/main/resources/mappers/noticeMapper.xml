@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="one.mapper.NoticeMapper">
+
+<!-- select * from review where title LIKE '%Java%'  --> 
+<sql id="search">
+  <if test="keyword != null">
+  	<bind name="keyVal" value="'%'+keyword+'%'"/>
+  </if>	
+  <choose>
+  	<when test="searchType=='t'.toString()">
+  		and bftitle Like #{keyVal} )
+  	</when>
+  	<when test="searchType=='c'.toString()">
+  		and bfcontent Like #{keyVal} )
+  	</when>
+  	<when test="searchType=='tc'.toString()">
+  		and bftitle Like  '%' || #{keyword} || '%' 
+  		or  bfcontent      Like  '%' || #{keyword} || '%')
+  	</when>
+  
+  	<otherwise>)</otherwise> 
+  </choose>
+</sql>
+
+	<select id="searchRowsCount" resultType="int">
+	<![CDATA[
+		select count(*) from notice where ( bfno > 0 ]]>
+		<include refid="search"></include>
+		<!-- 조건문의 id : search -->
+	</select>
+
+	<select id="searchList" resultType="vo.NoticeVO">
+	<![CDATA[
+		select bfno,bftitle,id,bfdate from 
+		(select n.* , ROW_NUMBER() OVER(order by bfno desc) rnum from notice n
+		where  bfno > 0 ]]>
+		<include refid="search"></include>
+		<!-- 조건문의 id : search -->
+		where rnum between #{sno} and #{eno}
+	</select> 
+
+<!-- ** 조회수증가 -->
+	<update id="countUp">
+		update notice set bfcnt=bfcnt+1 where bfno=#{bfno}
+	</update>
+	
+<!-- ** review List ~~~~~~~~~~~~~~~~~~~~~~-->
+	<select id="totalRowCount" resultType="int">
+		select count(*) from notice
+	</select>
+	
+	<select id="reviewList" resultType="vo.NoticeVO">
+		select bfno,bftitle,id,bfdate,bfcnt from 
+		(select n.* , ROW_NUMBER() OVER(order by bfno desc) rnum from notice n) 
+		where rnum between #{sno} and #{eno}
+	</select>
+
+	<select id="selectList" resultType="vo.NoticeVO">
+		select bfno,bftitle,id,bfdate,bfcnt from 
+		notice order by bfno desc
+	</select>
+	
+	<select id="selectOne" resultType="vo.NoticeVO">
+		select * from notice where bfno = #{bfno}
+	</select>
+<!-- 원글 입력 
+** selectKey Test         
+-->
+	<insert id="insert">
+		<selectKey keyProperty="bfno" resultType="int" order="BEFORE">
+			select nvl(max(bfno),0)+1 from notice
+		</selectKey>
+		insert into notice values ( 
+			#{bfno},#{bftitle},#{id},#{bfcontent},SYSDATE,0,
+			#{bfno},0,0)
+	</insert>
+	
+	<delete id="delete">
+		delete from notice where bfno=#{bfno}	
+	</delete>
+
+</mapper>  
+  
