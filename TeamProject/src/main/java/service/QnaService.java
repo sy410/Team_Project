@@ -22,7 +22,8 @@ public interface QnaService {
 	int replyInsert(QnaVO vo); // 답글등록
 	
 	List<QnaVO> selectList(); //selectList
-	QnaVO selectOne(QnaVO vo); //selectList
+	QnaVO selectOne(QnaVO vo); //selectOne
+	QnaVO selectReply(QnaVO vo); //selectReply
 	
 	int insert(QnaVO vo); //insert
 	int delete(QnaVO vo); //delete

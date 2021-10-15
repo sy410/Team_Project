@@ -27,7 +27,6 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/favicon.png">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/inCheck.js"></script>
 <script>
@@ -60,6 +59,10 @@ function inCheck() {
 } //inCheck 
 
 </script>
+<style>
+.eMessage { font-size: x-small;
+			font-style: italic; }
+</style>
 </head>
 <body>
 <div class="container-fluid px-3">     
@@ -72,13 +75,13 @@ function inCheck() {
 <form action="findId" method="post" class="form-validate">
 	<div class="mb-4">
 		<label class="form-label" for="name"> 이름 </label>
-        <input class="form-control" name="name" id="name" type="text" required>
-    	<span id="nMessage" class="eMessage"></span>
+        <input class="form-control" name="name" id="name" type="text"  placeholder="이름" required>
+    	<span id="nMessage" class="eMessage form-label text-danger"></span>
 	</div>
 	<div class="mb-4">
 		<label class="form-label" for="email"> 이메일 </label>
-        <input class="form-control" name="email" id="email" type="email" required>
-    	<span id="emMessage" class="eMessage"></span>
+        <input class="form-control" name="email" id="email" type="email" placeholder="이메일" required>
+    	<span id="emMessage" class="eMessage form-label text-danger"></span>
 	</div>
 		<!-- 이름과 이메일이 일치하지 않을 때-->
 		<c:if test="${check == 1}">
@@ -111,28 +114,6 @@ function inCheck() {
   	<!-- Image -->
           <div class="bg-cover h-100 me-n3" style="background-image: url(https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/photo-1497436072909-60f360e1d4b1.jpg);"></div>
         </div>
-      </div>
-    </div>
-    <button class="btn btn-primary btn-sm d-none d-lg-block" type="button" data-bs-toggle="collapse" data-bs-target="#style-switch" id="style-switch-button">
-      <svg class="svg-icon svg-icon-md">
-        <use xlink:href="#configuration-1"> </use>
-      </svg>
-    </button>
-    <div class="collapse" id="style-switch">
-      <div class="p-4">
-        <h6 class="text-uppercase mb-4">Select theme colour</h6>
-        <form class="mb-3">
-          <select class="form-select style-switch-select" name="colour" id="colour">
-            <option value="">select colour variant</option>
-            <option value="resources/css/style.default.222cad84.css">blue</option>
-            <option value="resources/css/style.pink.8e944c0e.css">pink</option>
-            <option value="resources/css/style.green.dbb19695.css">green</option>
-            <option value="resources/css/style.red.25441cbe.css">red</option>
-            <option value="resources/css/style.violet.46bbf1a3.css">violet</option>
-            <option value="resources/css/style.sea.e2d18689.css">sea</option>
-          </select>
-        </form>
-        <p class="text-muted text-xs mb-0">Stylesheet switching in this demo is done with JavaScript and can cause a blink while page loads. This will not happen in your production code.</p>
       </div>
     </div>
     <!-- JavaScript files-->

@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="one.mapper.NoticeMapper">
 
-<!-- select * from review where title LIKE '%Java%'  --> 
+<!-- select * from notice where title LIKE '%Java%'  --> 
 <sql id="search">
   <if test="keyword != null">
   	<bind name="keyVal" value="'%'+keyword+'%'"/>
@@ -16,8 +16,8 @@
   		and bfcontent Like #{keyVal} )
   	</when>
   	<when test="searchType=='tc'.toString()">
-  		and bftitle Like  '%' || #{keyword} || '%' 
-  		or  bfcontent      Like  '%' || #{keyword} || '%')
+  		and bftitle Like  #{keyVal} 
+  		or  bfcontent     #{keyVal})
   	</when>
   
   	<otherwise>)</otherwise> 
@@ -33,7 +33,7 @@
 
 	<select id="searchList" resultType="vo.NoticeVO">
 	<![CDATA[
-		select bfno,bftitle,id,bfdate from 
+		select bfno,id,bftitle,bfdate,bfcnt from 
 		(select n.* , ROW_NUMBER() OVER(order by bfno desc) rnum from notice n
 		where  bfno > 0 ]]>
 		<include refid="search"></include>
@@ -51,8 +51,8 @@
 		select count(*) from notice
 	</select>
 	
-	<select id="reviewList" resultType="vo.NoticeVO">
-		select bfno,bftitle,id,bfdate,bfcnt from 
+	<select id="noticeList" resultType="vo.NoticeVO">
+		select bfno,id,bftitle,bfdate,bfcnt from 
 		(select n.* , ROW_NUMBER() OVER(order by bfno desc) rnum from notice n) 
 		where rnum between #{sno} and #{eno}
 	</select>
@@ -73,10 +73,16 @@
 			select nvl(max(bfno),0)+1 from notice
 		</selectKey>
 		insert into notice values ( 
-			#{bfno},#{bftitle},#{id},#{bfcontent},SYSDATE,0,
-			#{bfno},0,0)
+			#{bfno},#{id},#{bftitle},#{bfcontent},#{bffile},SYSDATE,0)
 	</insert>
-	
+	<!-- insert into board values ( 
+		(select nvl(max(bfno),0)+1 from notice),
+		#{id},#{bftitle},#{bfcontent},SYSDATE,0) -->
+
+	<update id="update">
+		update notice set bftitle=#{bftitle}, bfcontent=#{bfcontent} where bfno=#{bfno}
+	</update>	
+
 	<delete id="delete">
 		delete from notice where bfno=#{bfno}	
 	</delete>

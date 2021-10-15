@@ -11,24 +11,23 @@
   <choose>
   	<when test="searchType=='t'.toString()">
   		and brtitle Like #{keyVal} )
-  		<!-- and title Like  CONCAT('%',CONCAT(#{keyword},'%')) -->
   	</when>
   	<when test="searchType=='c'.toString()">
   		and brcontent Like #{keyVal} )
   	</when>
   	<when test="searchType=='w'.toString()">
-  		and id Like  '%' || #{keyword} || '%')
+  		and id Like  #{keyVal})
   	</when>
   	<when test="searchType=='ci'.toString()">
-  		and city  Like  '%' || #{keyword} || '%' )
+  		and brcity  Like #{keyVal})
   	</when>
   	<when test="searchType=='cw'.toString()">
-  		and brcontent Like  '%' || #{keyword} || '%' 
-  		or  id  Like  '%' || #{keyword} || '%')
+  		and brcontent Like #{keyVal} 
+  		or  id  Like  #{keyVal})
   	</when>
   	<when test="searchType=='ct'.toString()">
-  		and brcontent Like  '%' || #{keyword} || '%' 
-  		or  brtitle  Like  '%' || #{keyword} || '%')
+  		and brcontent Like  #{keyVal} 
+  		or  brtitle  Like  #{keyVal})
   	</when>
   
   	<otherwise>)</otherwise> 
@@ -44,7 +43,7 @@
 
 	<select id="searchList" resultType="vo.ReviewVO">
 	<![CDATA[
-		select brno,brtitle,id,brdate,brcnt,root,step,indent from 
+		select brno,id,brtitle,brdate,brcnt,root,step,indent from 
 		(select r.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from review r
 		where  brno > 0 ]]>
 		<include refid="search"></include>
@@ -54,7 +53,7 @@
 
 <!-- ** 조회수증가 -->
 	<update id="countUp">
-		update board set brcnt=brcnt+1 where brno=#{brno}
+		update review set brcnt=brcnt+1 where brno=#{brno}
 	</update>
 	
 <!-- ** 답글입력 ~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
@@ -66,7 +65,7 @@
 			select nvl(max(brno),0)+1 from review
 		</selectKey>
 		insert into review values (
-		#{brno},#{brtitle},#{id},#{brcontent},SYSDATE,0,#{root},#{step},#{indent})
+		#{brno},#{id},0,#{brtitle},#{brcontent},0,0,SYSDATE,0,#{root},#{step},#{indent})
 	</insert>	
 
 <!-- ** review List ~~~~~~~~~~~~~~~~~~~~~~-->
@@ -75,19 +74,19 @@
 	</select>
 	
 	<select id="pageList" resultType="vo.ReviewVO">
-		select brno,brtitle,id,brdate,brcnt,root,step,indent from 
+		select brno,id,brtitle,brdate,brcnt,root,step,indent from 
 		(select r.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from review r) 
 		where rnum between #{sno} and #{eno}
 	</select>
 	
 	<select id="reviewList" resultType="vo.ReviewVO">
-		select brno,brtitle,id,brdate,brcnt,root,step,indent from 
+		select brno,id,brtitle,brcontent,brfile,brdate,brcnt,root,step,indent from 
 		(select r.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from review r) 
 		where rnum between #{sno} and #{eno}
 	</select>
 
 	<select id="selectList" resultType="vo.ReviewVO">
-		select brno,brtitle,id,brdate,brcnt,root,step,indent from 
+		select brno,id,brtitle,brcontent,brfile,brdate,brcnt,root,step,indent from 
 		review order by root desc, step asc
 	</select>
 	
@@ -102,7 +101,7 @@
 			select nvl(max(brno),0)+1 from review
 		</selectKey>
 		insert into review values ( 
-			#{brno},#{brtitle},#{id},#{brcontent},#{brfile},SYSDATE,0,
+			#{brno},#{id},#{brcity},#{brtitle},#{brcontent},#{brfile},#{brating}<!-- ,#{brcno} -->,SYSDATE,0,
 			#{brno},0,0)
 	</insert>
 	

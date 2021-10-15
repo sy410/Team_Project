@@ -59,6 +59,11 @@ public class QnaServiceImpl implements QnaService{
 	} //selectone
 	
 	@Override
+	public QnaVO selectReply(QnaVO vo) {
+		return dao.selectReply(vo);
+	}
+	
+	@Override
 	public int insert(QnaVO vo) {
 		return dao.insert(vo);
 	} //insert

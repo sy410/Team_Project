@@ -1,27 +1,17 @@
 package service;
 
 import java.util.List;
-import java.util.Map;
 
 import criTest.SearchCriteria;
+import vo.NoticeVO;
 import vo.PmemberVO;
 
 public interface PmemberService {
-
-
-
 	
-	
-	
+/*	List<NoticeVO> myboard();*/
 	
 	// ** ID 중복확인
 	public int idCheck(PmemberVO vo);
-	
-	
-	// ** 패스워드 확인
-	int passCheck(PmemberVO vo);
-	
-	
 	
 	// ** ID 찾기
 	PmemberVO pFindId(PmemberVO vo);
@@ -29,8 +19,6 @@ public interface PmemberService {
 	PmemberVO pFindPw(PmemberVO vo);
 	// ** Password 재설정
 	public void updatePw(PmemberVO vo);
-	
-	
 	
 	// **SearchPageList
 	public int searchRowsCount(SearchCriteria cri);

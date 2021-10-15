@@ -34,7 +34,7 @@
 
 	<select id="searchList" resultType="vo.QnaVO">
 	<![CDATA[
-		select bqno,bqtitle,id,bqdate,root,step,indent from 
+		select bqno,id,bqtitle,bqdate,root,step,indent from 
 		(select q.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from qna q
 		where  bqno > 0 ]]>
 		<include refid="search"></include>
@@ -51,7 +51,7 @@
 			select nvl(max(bqno),0)+1 from qna
 		</selectKey>
 		insert into qna values (
-		#{bqno},#{bqtitle},#{id},#{bqcontent},SYSDATE,0,#{root},#{step},#{indent})
+		#{bqno},#{id},#{bqtitle},#{bqcontent},0,SYSDATE,#{root},#{step},#{indent})
 	</insert>	
 
 <!-- ** qna List ~~~~~~~~~~~~~~~~~~~~~~-->
@@ -60,24 +60,28 @@
 	</select>
 	
 	<select id="pageList" resultType="vo.QnaVO">
-		select bqno,bqtitle,id,bqdate,root,step,indent from 
+		select bqno,id,bqtitle,bqdate,root,step,indent from 
 		(select q.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from qna q) 
 		where rnum between #{sno} and #{eno}
 	</select>
 	
 	<select id="reviewList" resultType="vo.QnaVO">
-		select bqno,bqtitle,id,bqdate,root,step,indent from 
+		select bqno,id,bqtitle,bqdate,root,step,indent from 
 		(select q.* , ROW_NUMBER() OVER(order by root desc, step asc) rnum from qna q) 
 		where rnum between #{sno} and #{eno}
 	</select>
 
 	<select id="selectList" resultType="vo.QnaVO">
-		select bqno,bqtitle,id,bqdate,root,step,indent from 
+		select bqno,id,bqtitle,bqdate,root,step,indent from 
 		qna order by root desc, step asc
 	</select>
 	
 	<select id="selectOne" resultType="vo.QnaVO">
 		select * from qna where bqno = #{bqno}
+	</select>
+	
+	<select id="selectReply" resultType="vo.QnaVO">
+		select * from qna where bqno != #{root} and root = #{root}
 	</select>
 <!-- 원글 입력 
 ** selectKey Test         
@@ -87,7 +91,7 @@
 			select nvl(max(bqno),0)+1 from qna
 		</selectKey>
 		insert into qna values ( 
-			#{bqno},#{bqtitle},#{id},#{bqcontent},#{bqpw},SYSDATE,0,
+			#{bqno},#{id},#{bqtitle},#{bqcontent},#{bqpw},SYSDATE,
 			#{bqno},0,0)
 	</insert>
 	

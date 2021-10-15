@@ -1,5 +1,7 @@
 package vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -10,7 +12,9 @@ public class PmemberVO {
 	private String birth;
 	private String tel;
 	private String email;
-	private int postcode;
+	private String postcode;
 	private String addr;
 	private String detailAddr;
+ 	
+	//private List<NoticeVO> nlist;
 }

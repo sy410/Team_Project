@@ -20,47 +20,53 @@
   </if>	
   <choose>
   	<when test="searchType=='i'.toString()">
-  		and id Like #{keyVal} )
+  		and cno Like #{keyVal} )
   	</when>
   	<when test="searchType=='a'.toString()">
-  		and name Like #{keyVal} )
+  		and cname Like #{keyVal} )
   	</when>
   	<when test="searchType=='l'.toString()">
-  		and lev Like #{keyVal} )
-  	</when>
-  	<when test="searchType=='r'.toString()">
-  		and rid Like #{keyVal} )
-  	</when>
-  	<when test="searchType=='b'.toString()">
-  		and birthd Like #{keyVal} )
-  	</when>
-  	<when test="searchType=='ia'.toString()">
-  		and id Like #{keyVal}
-  		or  name Like #{keyVal} )
+  		and ctype Like #{keyVal} )
   	</when>
   	<otherwise>)</otherwise> 
   </choose>
 </sql>
+
+
+
+
 <!-- ** PageList 2. searchList 기능 ( Sql문 추가 )  -->
 	<select id="searchRowsCount" resultType="int">
 	<![CDATA[
-		select count(*) from company where ( cno <> '00000000' ]]>
+		select count(*) from company where ( cno <> '0000000000' ]]>
 		<include refid="search"></include>
 	</select>
-
-	<select id="pageList" resultType="vo.CompanyVO">
-		select cno, cpw,cname,
+	
+<!-- 	<select id="searchList" resultType="vo.MemberVO">
+		select cno,cpw,cname, 
 		DECODE(ctype,'A','맛집','B','도서관','C','카페','D','팝업스토어','E','전치','F','축제','기타') ctype,
 		cinfo,caddr,cdate,cdate_s,cdate_e,period_s,
-		period_e,ctel,cprice,csite,cpark,comUploadfile from
-		select c.* , ROW_NUMBER() OVER(order by cno) rnum from company c where cno !='0000000000')
+		period_e,ctel,cprice,csite,cpark,comuploadfile from
+		(select c.* , ROW_NUMBER() OVER(order by cno) rnum from company c where cno !='0000000000' 
+		<include refid="search"></include>
+		where rnum between #{sno} and #{eno}
+	</select> -->
+	
+	<!-- ** PageList 1.-->
+	<select id="totalRowCount" resultType="int">
+	  <![CDATA[
+		select count(*) from company where cno <> '0000000000' ]]>
+	</select>
+	
+	<select id="pageList" resultType="vo.CompanyVO">
+		select cno,cpw,cname,ctype,cinfo,caddr,cdate,cdate_s,cdate_e,period_s,
+		period_e,ctel,cprice,csite,cpark,comuploadfile from
+		(select c.* , ROW_NUMBER() OVER(order by cno) rnum from company c where cno !='0000000000')
 		where rnum between #{sno} and #{eno}
 	</select>
-
-
-
+	
 	<select id="selectList" resultType="vo.CompanyVO">
-		select * from company where cno != '0000000000' order by cno
+		select * from company where cno != '0000000000'
 	</select>
 	
 	<select id="selectOne" resultType="vo.CompanyVO">
@@ -70,13 +76,19 @@
 	<insert id="insert">
 		insert into company values(
 		#{cno},#{cpw},#{cname},#{ctype},#{cinfo},#{caddr},#{cdate},#{cdate_s},#{cdate_e},
-		#{period_s},#{period_e},#{ctel},#{cprice},#{csite},#{cpark},#{comUploadfile})
+		#{period_s},#{period_e},#{ctel},#{cprice},#{csite},#{cpark},#{comuploadfile})
 	</insert>
 	
 	<update id="update">
 		update company set cpw=#{cpw}, cname=#{cname}, ctype=#{ctype}, cinfo=#{cinfo}, caddr=#{caddr}
 		, cdate=#{cdate}, cdate_s=#{cdate_s}, cdate_e=#{cdate_e}, period_s=#{period_s}, period_e=#{period_e}, ctel=#{ctel}
-		, cprice=#{cprice}, csite=#{csite}, cpark=#{cpark}, comUploadfile=#{comUploadfile} where cno=#{cno}
+		, cprice=#{cprice}, csite=#{csite}, cpark=#{cpark}, comuploadfile=#{comuploadfile} where cno=#{cno}
+	</update>
+	
+	<update id="update_">
+		update company set cpw=#{cpw}, cname=#{cname}, ctype=#{ctype}, cinfo=#{cinfo}, caddr=#{caddr}
+		, cdate=#{cdate}, cdate_s=#{cdate_s}, cdate_e=#{cdate_e}, period_s=#{period_s}, period_e=#{period_e}, ctel=#{ctel}
+		, cprice=#{cprice}, csite=#{csite}, cpark=#{cpark}, comuploadfile=#{comuploadfile} where cno=#{cno}
 	</update>
 	
 	<delete id="delete">

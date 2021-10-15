@@ -15,12 +15,6 @@ public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	NoticeDAO dao;
 	
-	// ** Ajax titleRDetail
-	@Override
-	public List<NoticeVO> titleNDetail(NoticeVO vo) {
-		return dao.titleNDetail(vo);
-	}
-	
 	// PageList2. => ver02 : SearchPageList
 	@Override
 	public int searchRowsCount(SearchCriteria cri) {

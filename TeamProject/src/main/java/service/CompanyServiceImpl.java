@@ -5,20 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import criTest.Criteria;
 import criTest.SearchCriteria;
 import util.CompanyDAO;
 import vo.CompanyVO;
+import vo.PageVO;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
-	CompanyDAO dao;
+	CompanyDAO dao;	
+	
 	
 	@Override
 	public List<CompanyVO> checkList(CompanyVO vo) {
 		return dao.checkList(vo);
 	}
+	
 	@Override
 	public int searchRowsCount(SearchCriteria cri) {
 		return dao.searchRowsCount(cri);
@@ -27,6 +31,21 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<CompanyVO> searchList(SearchCriteria cri) {
 		return dao.searchList(cri);
 	}
+	//-------------------------------------------------------------------
+	@Override
+	public int totalRowsCount() {
+		return dao.totalRowsCount();
+	}
+	@Override
+	public List<CompanyVO> criPList(Criteria cri) {
+		return dao.criPList(cri);
+	}
+	@Override
+	public PageVO<CompanyVO> pageList(PageVO<CompanyVO> pvo) {
+		return dao.pageList(pvo);
+	}
+	//-------------------------------------------------------------------
+	
 	@Override
 	public List<CompanyVO> selectList() {
 		return dao.selectList();

@@ -34,132 +34,82 @@
   </head>
   <body style="padding-top: 72px;">
     <header class="header">
-      <!-- Navbar-->
-      <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-        <div class="container-fluid">
-          <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home"><img src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/logo.svg" alt="Directory logo"></a>
-            <form class="form-inline d-none d-sm-flex" action="#" id="search">
-              <div class="input-label-absolute input-label-absolute-left input-expand ms-lg-2 ms-xl-3"> 
-                <label class="label-absolute" for="search_search"><i class="fa fa-search"></i><span class="sr-only">What are you looking for?</span></label>
-                <input class="form-control form-control-sm border-0 shadow-0 bg-gray-200" id="search_search" placeholder="Search" aria-label="Search" type="search">
-              </div>
-            </form>
-          </div>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-          <!-- Navbar Collapse -->
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <form class="form-inline mt-4 mb-2 d-sm-none" action="#" id="searchcollapsed">
-              <div class="input-label-absolute input-label-absolute-left w-100">
-                <label class="label-absolute" for="searchcollapsed_search"><i class="fa fa-search"></i><span class="sr-only">What are you looking for?</span></label>
-                <input class="form-control form-control-sm border-0 shadow-0 bg-gray-200" id="searchcollapsed_search" placeholder="Search" aria-label="Search" type="search">
-              </div>
-            </form>
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="homeDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   Home</a>
-                <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="index.html">Rooms</a><a class="dropdown-item" href="index-2.html">Restaurants</a><a class="dropdown-item" href="index-3.html">Travel</a><a class="dropdown-item" href="index-4.html">Real Estate <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+<!-- Navbar-->
+ <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+   <div class="container-fluid">
+     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
+     <img src="resources/image/logo.svg" alt="Logo"></a></div>
+               
+     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+     <!-- Navbar Collapse -->
+     <div class="collapse navbar-collapse" id="navbarCollapse">
+       <ul class="navbar-nav ms-auto">
+         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
+         </li>
+       	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
+       	 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              게시판메뉴</a>
+           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
+             <h6 class="dropdown-header fw-normal">게시판</h6>
+	             	<a class="dropdown-item" href="rlist">후기</a>
+    	         	<a class="dropdown-item" href="nlist">공지</a>
+    	         	<a class="dropdown-item" href="qlist">QnA</a>
+           </div>
+         </li>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              회원메뉴</a>
+          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
+           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
+             	<c:if test="${loginCno==null && loginID==null}">
+             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
+	             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
+    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
+    	         </c:if>
+    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
+    	         <c:if test="${loginCno!=null && loginID==null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+    	         	<a class="dropdown-item" href="cinfo_main">마이페이지</a>&nbsp;&nbsp;
+	   	         	<a class="dropdown-item" href="cinfo_detail">내정보보기</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">내정보수정</a>&nbsp;&nbsp;
+				 </c:if>
+		   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 --> 
+    	         <c:if test="${loginCno==null && loginID!=null}">
+    	         <h6 class="dropdown-header fw-normal">회원 메뉴</h6>
+    	        	<a class="dropdown-item" href="paccountf">마이페이지</a>&nbsp;&nbsp;
+	   	         	<a class="dropdown-item" href="pdetail">내정보보기</a>&nbsp;&nbsp;
+				 </c:if>
+           </div>
+         </li>
+         <!-- 관리자일때만 메뉴확인가능 -->
+		 <c:if test="${loginID == 'admin'}">
+              <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   회원목록</a>
+                <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="pcplist">일반회원 목록</a><a class="dropdown-item" href="comlist">사업자회원 목록</a><div class="dropdown-divider"></div><a class="dropdown-item" href="#">예약관리</a></div>
               </li>
-              <!-- Megamenu-->
-              <li class="nav-item dropdown position-static"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Template</a>
-                <div class="dropdown-menu megamenu py-lg-0">
-                  <div class="row">
-                    <div class="col-lg-9">
-                      <div class="row p-3 pe-lg-0 ps-lg-5 pt-lg-5">
-                        <div class="col-lg-3">
-       					  <!-- Megamenu list-->
-                          <h6 class="text-uppercase">Homepage</h6>
-                          <ul class="megamenu-list list-unstyled">
-                            <li class="megamenu-list-item"><a class="megamenu-list-link" href="index.html">Rooms   </a></li>
-                            <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-2.html">Restaurants   </a></li>
-                            <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-3.html">Travel   </a></li>
-                            <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-4.html">Real estate <span class="badge badge-info-light ms-1">New</span>   </a></li>
-                          </ul>
-                          <!-- Megamenu list-->
-                          <h6 class="text-uppercase">Restaurants</h6>
-                          <ul class="megamenu-list list-unstyled">
-                            <li class="megamenu-list-item"><a class="megamenu-list-link" href="category.html">Category - Map on the top   </a></li>
-                            <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-2.html">Category - Map on the right   </a></li>
-                          </ul>
-                          </div>
-                          <div class="col-lg-3">
-                          <!-- Megamenu list-->
-                          <h6 class="text-uppercase">Rooms</h6>
-                          <ul class="megamenu-list list-unstyled">
-                            <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-rooms.html">Category - Map on the top   </a></li>
-                            <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-2-rooms.html">Category - Map on the right   </a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="row megamenu-services d-none d-lg-flex ps-lg-5">
-                        <div class="col-xl-3 col-lg-6 d-flex">
-                          <div class="megamenu-services-item">
-                            <svg class="svg-icon megamenu-services-icon">
-                              <use xlink:href="#destination-map-1"> </use>
-                            </svg>
-                            <div>
-                              <h6 class="text-uppercase">Best rentals</h6>
-                              <p class="mb-0 text-muted text-sm">Find the perfect place</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 d-flex">
-                          <div class="megamenu-services-item">
-                            <svg class="svg-icon megamenu-services-icon">
-                              <use xlink:href="#money-box-1"> </use>
-                            </svg>
-                            <div>
-                              <h6 class="text-uppercase">Earn points</h6>
-                              <p class="mb-0 text-muted text-sm">And get great rewards</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 d-flex">
-                          <div class="megamenu-services-item">
-                            <svg class="svg-icon megamenu-services-icon">
-                              <use xlink:href="#customer-support-1"> </use>
-                            </svg>
-                            <div>
-                              <h6 class="text-uppercase">020-800-456-747</h6>
-                              <p class="mb-0 text-muted text-sm">24/7 Available Support</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 d-flex">
-                          <div class="megamenu-services-item">
-                            <svg class="svg-icon megamenu-services-icon">
-                              <use xlink:href="#secure-payment-1"> </use>
-                            </svg>
-                            <div>
-                              <h6 class="text-uppercase">Secure Payment</h6>
-                              <p class="mb-0 text-muted text-sm">Secure Payment</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 d-none d-lg-block position-relative"><img class="bg-image" src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/photo-1521170665346-3f21e2291d8b.jpg" alt=""></div>
-                  </div>
-                </div>
-              </li>
-              <li class="nav-item dropdown ms-lg-3"><a id="userDropdownMenuLink" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img class="avatar avatar-sm avatar-border-white me-2" src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/avatar/avatar-10.jpg" alt="Jack London"></a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a class="dropdown-item" href="user-booking-1.html">Booking process - 4 pages </a><a class="dropdown-item" href="user-grid.html">Bookings &mdash; grid view </a><a class="dropdown-item" href="user-booking-detail.html">Booking detail </a>
-                  <div class="dropdown-divider"></div><a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt me-2 text-muted"></i> 로그아웃</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+         </c:if>
+		 <!-- 로그인 전용 사용가능 메뉴 -->
+		 <c:if test="${loginID!=null || loginCno!=null}">
+	 			<li class="nav-item"><a class="nav-link" href="logout">LOGOUT</a></li>
+         </c:if>
+         <!-- 비로그인 사용가능 메뉴-->
+         <c:if test="${loginCno==null && loginID==null}">
+	       		<li class="nav-item"><a class="nav-link" href="loginf_total">로그인</a></li>
+	       		<li class="nav-item"><a class="nav-link" href="joinf_total">회원가입</a></li>
+	     </c:if>
+       </ul>
+     </div>
+   </div>
+ </nav>
       <!-- /Navbar -->
     </header>
     <section class="py-5">
       <div class="container">
         <!-- Breadcrumbs -->
         <ol class="breadcrumb ps-0  justify-content-start">
-          <li class="breadcrumb-item"><a href="home">Home</a></li>
-          <li class="breadcrumb-item active">Mypage</li>
+          <li class="breadcrumb-item"><a href="home">홈</a></li>
+          <li class="breadcrumb-item active">마이페이지</li>
         </ol>
-        <h1 class="hero-heading mb-0">MYPAGE</h1>
+        <h1 class="hero-heading mb-0">마이페이지</h1>
         <p class="text-muted mb-5"></p>
         <div class="row">
           <div class="col-6 col-md-4 mb-30px">
@@ -170,21 +120,8 @@
                     <use xlink:href="#identity-1"> </use>
                   </svg>
                 </div>
-                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="pdetail">Personal info</a></h5>
-                <p class="text-muted card-text text-sm">개인정보를 관리하는 공간</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-md-4 mb-30px">
-            <div class="card h-100 border-0 shadow hover-animate">
-              <div class="card-body">
-                <div class="icon-rounded bg-secondary-light mb-3">
-                  <svg class="svg-icon text-secondary w-2rem h-2rem">
-                    <use xlink:href="#password-1"> </use>
-                  </svg>
-                </div>
-                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">예약 조회</a></h5>
-                <p class="text-muted card-text text-sm">  </p>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="pdetail">개인정보</a></h5>
+                <p class="text-muted card-text text-sm">개인정보를 관리하세요.</p>
               </div>
             </div>
           </div>
@@ -196,11 +133,24 @@
                     <use xlink:href="#pay-by-card-1"> </use>
                   </svg>
                 </div>
-                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">공사중</a></h5>
-                <p class="text-muted card-text text-sm">  </p>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">예약내역</a></h5>
+                <p class="text-muted card-text text-sm">예약한 내역을 확인할 수 있습니다.</p>
               </div>
             </div>
-          </div>     
+          </div>
+           <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#chat-app-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">문의하기</a></h5>
+                <p class="text-muted card-text text-sm">궁금하신 내용에 대해 문의하세요.</p>
+              </div>
+            </div>
+          </div>
           <div class="col-6 col-md-4 mb-30px">
             <div class="card h-100 border-0 shadow hover-animate">
               <div class="card-body">
@@ -209,8 +159,8 @@
                     <use xlink:href="#diary-1"> </use>
                   </svg>
                 </div>
-                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">게시판</a></h5>
-                <p class="text-muted card-text text-sm">작성한 게시물을 관리하는 공간</p>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">내 게시판</a></h5>
+                <p class="text-muted card-text text-sm">작성한 게시물을 확인할 수 있습니다.</p>
               </div>
             </div>
           </div>
@@ -223,7 +173,7 @@
                   </svg>
                 </div>
                 <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="pdeletef">회원탈퇴</a></h5>
-                <p class="text-muted card-text text-sm"></p>
+                <p class="text-muted card-text text-sm">회원탈퇴를 원하시면 버튼을 눌러주세요.</p>
               </div>
             </div>
           </div>
@@ -232,11 +182,11 @@
               <div class="card-body">
                 <div class="icon-rounded bg-secondary-light mb-3">
                   <svg class="svg-icon text-secondary w-2rem h-2rem">
-                    <use xlink:href="#chat-app-1"> </use>
+                    <use xlink:href="#mix-1"> </use>
                   </svg>
                 </div>
-                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">공사중</a></h5>
-                <p class="text-muted card-text text-sm">  </p>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="logout">로그아웃</a></h5>
+                <p class="text-muted card-text text-sm">버튼을 누르면 계정이 로그아웃됩니다.</p>
               </div>
             </div>
           </div>
@@ -310,28 +260,6 @@
         </div>
       </div>
     </footer>
-    <button class="btn btn-primary btn-sm d-none d-lg-block" type="button" data-bs-toggle="collapse" data-bs-target="#style-switch" id="style-switch-button">
-      <svg class="svg-icon svg-icon-md">
-        <use xlink:href="#configuration-1"> </use>
-      </svg>
-    </button>
-    <div class="collapse" id="style-switch">
-      <div class="p-4">
-        <h6 class="text-uppercase mb-4">Select theme colour</h6>
-        <form class="mb-3">
-          <select class="form-select style-switch-select" name="colour" id="colour">
-            <option value="">select colour variant</option>
-            <option value="css/style.default.222cad84.css">blue</option>
-            <option value="css/style.pink.8e944c0e.css">pink</option>
-            <option value="css/style.green.dbb19695.css">green</option>
-            <option value="css/style.red.25441cbe.css">red</option>
-            <option value="css/style.violet.46bbf1a3.css">violet</option>
-            <option value="css/style.sea.e2d18689.css">sea</option>
-          </select>
-        </form>
-        <p class="text-muted text-xs mb-0">Stylesheet switching in this demo is done with JavaScript and can cause a blink while page loads. This will not happen in your production code.</p>
-      </div>
-    </div>
     <!-- JavaScript files-->
     <script>
       // ------------------------------------------------------- //

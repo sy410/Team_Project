@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import criTest.PageMaker;
 import criTest.SearchCriteria;
 import service.PmemberService;
+import vo.NoticeVO;
 import vo.PmemberVO;
 
 @Controller
@@ -25,8 +26,51 @@ public class PmemberController {
 	PmemberService service;
 	@Autowired 
 	PasswordEncoder passwordEncoder;
-	
 
+/*	// ** Myboardf
+	@RequestMapping(value ="/myboardf")
+	public ModelAndView myboardf (ModelAndView mv) {
+		mv.setViewName("pmember/myboardForm");
+		return mv;
+	}
+
+	// ** Myboard
+	@RequestMapping(value ="/myboard")
+	public ModelAndView myboard (ModelAndView mv, SearchCriteria cri, PageMaker pageMaker, HttpSession session) {
+
+		PmemberVO vo = (PmemberVO)session.getAttribute("PmemberVO");
+		String id = vo.getId();
+		
+		NoticeVO nboard = service.myboard("id");
+		
+		mv.addObject("userInfo", vo);
+		mv.setViewName("pmember/myboardForm");
+		return mv;*/
+		
+/*		// 1) Criteria 처리
+		cri.setSnoEno();
+		
+		// 2) 서비스 처리
+		mv.addObject("Banana",service.searchList(cri));	
+		service.searchList(cri);
+		
+		// 3) PageMaker 처리
+		pageMaker.setCri(cri);
+		pageMaker.setTotalRowCount(service.searchRowsCount(cri));
+		/*if(list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "출력할 자료가 없습니다!!");
+		}*/
+	/*	mv.addObject("pageMaker",pageMaker);
+		mv.setViewName("pmember/myboardForm");
+		return mv;*/
+		
+/*	}*/
+	
+	
+	
+	
 	// ** Accountf
 	@RequestMapping(value ="/paccountf")
 	public ModelAndView paccountf (ModelAndView mv) {
@@ -275,26 +319,18 @@ public class PmemberController {
 		}
 		return mv;
 	}
-
 	
-	// ** Delete : 회원탈퇴
-		@RequestMapping(value="/adelete")
-		public ModelAndView adelete(PmemberVO vo, HttpSession session, ModelAndView mv, HttpServletRequest request) {
-			if  (request.getParameter("id")!=null) vo.setId(request.getParameter("id"));
-			vo=service.selectOne(vo);
-			if (vo != null) {
-					service.delete(vo);
-					session.invalidate();
-					mv.addObject("message", "회원탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.");
-					mv.setViewName ("home");
-				}else {
-					mv.addObject("message", "비밀번호를 잘못 입력하였습니다.");
-					mv.setViewName ("pmember/deleteForm");
-				}		
-		/*	}else {
-				mv.addObject("message", "로그인 후 이용 하세요.");
-				mv.setViewName("pmember/loginForm");
-			}*/
+		// ** Json Delete : 관리자 권한_강제탈퇴
+		@RequestMapping(value = "/jsdelete")
+		public ModelAndView jsdelete(ModelAndView mv, PmemberVO vo) {
+			
+			if (service.delete(vo) > 0) {
+				mv.addObject("success", "T");
+			}else {
+				mv.addObject("success", "F");
+			}
+			mv.setViewName("jsonView");
 			return mv;
-		}
+		} //jsdelete
+		
 } // class

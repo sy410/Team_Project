@@ -55,7 +55,12 @@ public class QnaDAO {
 	// ** selectOne
 	public QnaVO selectOne(QnaVO vo) {
 		return sqlSession.selectOne(NS+"selectOne", vo);
-	} //selectOne 
+	} //selectOne
+	
+	// ** selectReply
+	public QnaVO selectReply(QnaVO vo) {
+		return sqlSession.selectOne(NS+"selectReply", vo);
+	} //selectReply 
 	
 	// ** insert (원글)
 	public int insert(QnaVO vo) {

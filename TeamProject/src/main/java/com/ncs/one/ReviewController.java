@@ -1,5 +1,7 @@
 package com.ncs.one;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,36 +27,21 @@ public class ReviewController {
 	@Autowired
 	ReviewService service;
 	
-	// ** Ajax review Title - detail
-	@RequestMapping(value = "/ardetail")
-	public ModelAndView ardetail(ModelAndView mv, ReviewVO vo) {
-		List<ReviewVO> list = service.titleRDetail(vo);
-		if (list != null) {
-			mv.addObject("Banana", list);
-		}else {
-			mv.addObject("message", "~~ 출력할 자료가 1건도 없습니다. ~~");
-		}
-		mv.setViewName("review/reviewDetail");
-		return mv;
-	} //arlist
-	
-	// ** Ajax BoardList 
-	@RequestMapping(value = "/arcplist")
-	public ModelAndView rcplist(ModelAndView mv) {
-		List<ReviewVO> list = service.selectList();
-		if (list != null) {
-			mv.addObject("Banana", list);
-		}else {
-			mv.addObject("message", "~~ 출력할 자료가 1건도 없습니다. ~~");
-		}
-		mv.setViewName("review/rCriList");
-		return mv;
-	} //arlist
+	/*
+	 * // ** Ajax BoardList
+	 * 
+	 * @RequestMapping(value = "/arcplist") public ModelAndView rcplist(ModelAndView
+	 * mv) { List<ReviewVO> list = service.selectList(); if (list != null) {
+	 * mv.addObject("Banana", list); }else { mv.addObject("message",
+	 * "~~ 출력할 자료가 1건도 없습니다. ~~"); } mv.setViewName("review/rCriList"); return mv; }
+	 * //arlist
+	 */	
 	
 	// ** Review CriPageList
-	@RequestMapping(value = "/rcplist")
+	@RequestMapping(value = "/rlist")
 	
-	public ModelAndView rcplist(ModelAndView mv, SearchCriteria cri, PageMaker pageMaker) {
+	public ModelAndView rlist(ModelAndView mv, SearchCriteria cri, PageMaker pageMaker) {
+
 		cri.setSnoEno();
 			
 		// 2) 서비스 처리
@@ -65,9 +53,9 @@ public class ReviewController {
 		
 		System.out.println("*** pageMaker => "+pageMaker);
 		mv.addObject("pageMaker",pageMaker);
-		mv.setViewName("review/rCriList");
+		mv.setViewName("review/reviewList");
 		return mv;
-	} //rcplist 
+	} //rlist 
 	
 	// ** 새글등록
 	@RequestMapping(value = "/rinsertf")
@@ -77,8 +65,39 @@ public class ReviewController {
     } //rinsertf
 	
 	@RequestMapping(value = "/rinsert")
-	public ModelAndView rinsert(ModelAndView mv, ReviewVO vo, RedirectAttributes rttr) {
+	public ModelAndView rinsert(HttpServletRequest request, ModelAndView mv, ReviewVO vo, RedirectAttributes rttr) throws IOException {
+		System.out.println("insert => "+vo);
+		
+		String realPath = request.getRealPath("/"); // deprecated Method
+		System.out.println("** realPath => "+realPath);
+				
+		// 2) 위 의 위치를 이용해서 실제 저장위치 확인 
+		// => 개발중인지, 배포했는지 에 따라 결정
+		if (realPath.contains(".eclipse."))
+			 realPath = "D:/MTest/MyWork/TeamProject/src/main/webapp/resources/reviewImage/";
+		else realPath += "resources\\reviewImage\\"; 
+		
+		// ** 폴더 만들기 (File 클래스활용)
+		// => 위의 저장경로에 폴더가 없는 경우 (uploadImage가 없는경우)  만들어 준다
+		File f1 = new File(realPath);
+		if (!f1.exists()) f1.mkdir();
+		// realPath 디렉터리가 존재하는지 검사 (uploadImage 폴더 존재 확인)
+		// => 존재하지 않으면 디렉토리 생성
+		
+		// 기본 Image 지정
+		String file1, file2 = null;
 
+		System.out.println("** Ajax Test vo => "+vo);
+		
+		MultipartFile uploadfilef = vo.getUploadfilef();
+		if ( uploadfilef != null && !uploadfilef.isEmpty() ) {
+			// Image 를 선택했음
+			file1 = realPath + uploadfilef.getOriginalFilename(); //  전송된 File명 추출 & 연결
+			uploadfilef.transferTo(new File(file1)); // real 위치에 전송된 File 붙여넣기
+			file2 = "resources/reviewImage/" + uploadfilef.getOriginalFilename(); // Table 저장 경로
+		}
+		vo.setBrfile(file2); // Table 저장 경로 set
+		
 		if ( service.insert(vo) > 0) {
 			rttr.addFlashAttribute("message", "~~ 새글 등록 성공 ~~");
 			mv.setViewName("redirect:rlist"); 
@@ -103,36 +122,24 @@ public class ReviewController {
 			String loginID = (String)session.getAttribute("loginID");
 			// 글쓴이(Parameter 로 전달) 와 글보는이(loginID) 가 다른경우에만 조회수 증가
 			if (!loginID.equals(vo.getId())) {
-				service.countUp(vo) ;
+				service.countUp(vo);
 			} 
 			// 글내용 조회
 			vo = service.selectOne(vo);
 			if (vo != null) {
 				request.setAttribute("Apple", vo);
+				if(loginID != null) {
+					mv.setViewName("review/reviewDetail"); }
 			}else {
 				rttr.addFlashAttribute("message", "~~ 글번호에 해당하는 글을 찾을 수 없습니다 ~~");
 				mv.setViewName("redirect:rlist"); 
 			}
 		}else {
 			mv.addObject("message", "~~ 로그인 정보가 없습니다 !! 로그인 후 다시 하세요  ~~");
-			mv.setViewName("로그인폼"); 
+			mv.setViewName("pmember/loginForm"); 
 		}
 		return mv;
 	} //rdetail	
-	
-	// ** Review List
-	@RequestMapping(value = "/rlist")
-	public ModelAndView rlist(ModelAndView mv) {
-
-		List<ReviewVO> list = service.selectList() ;
-		if (list != null) {
-			mv.addObject("Banana", list);
-		}else {
-			mv.addObject("message", "~~ 출력할 자료가 없습니다 ~~");
-		}
-		mv.setViewName("review/reviewList");
-		return mv;
-	} //rlist
 	
 	// ** 답글달기
 		@RequestMapping(value = "/replyf")

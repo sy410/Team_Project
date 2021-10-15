@@ -3,6 +3,41 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="one.mapper.PmemberMapper">
 
+	<!--  <select id="myboard" resultMap="vo.PmemberVO">
+		select id, pw, name, birth, tel, email, postcode, addr, detailAddr, n.bfno, n.bftitle, n.bfdate
+		from pmember p
+		left outer join Notice n
+		on p.id = n.id
+		where p.id = #{id} 
+	</select>
+	
+	<resultMap type="PmemberVO" id="userInfo">
+		<result property="id" column="ID"/>
+		<result property="pw" column="PW"/>
+		<result property="name" column="NAME"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="tel" column="TEL"/>
+		<result property="email" column="EMAIL"/>
+		<result property="postcode" column="POSTCODE"/>
+		<result property="addr" column="ADDR"/>
+		<result property="detailAddr" column="DETAILADDR"/>
+		<collection property="nlist" resultMap="NoticeList"></collection>
+	</resultMap>
+	
+	<resultMap type="NoticeVO" id="NoticeList">
+		<result property="bfno" column="BFNO"/>
+		<result property="bftitle" column="BFTITLE"/>
+		<result property="bfdate" column="BFDATE"/>
+	</resultMap>-->
+
+<!-- 	<select id="myboard" parameterType="vo.PmemberVO"  resultType="vo.PmemberVO">
+            select * from pmember
+                <if test="myboard != null">
+                    <![CDATA[ AND id=#{id} ]]>        
+                </if>
+	</select> -->
+
+
 	<!-- ID 중복 확인 -->
 	<select id="idCheck" parameterType="String" resultType="int">
 		select count(id) from pmember where id=#{id}
@@ -19,8 +54,7 @@
 	<!-- Password 수정 -->
 	<update id="updatePw">
 		update pmember set pw=#{pw} where id=#{id}
-	</update>
-	
+	</update>	
 	
 <sql id="search">
   <if test="keyword != null">
@@ -77,7 +111,7 @@
 	</update>
 	
 	<delete id="delete">
-		delete from pmember where id=#{id} and pw=#{pw}
+		delete from pmember where id=#{id}
 	</delete>
 	
 </mapper>

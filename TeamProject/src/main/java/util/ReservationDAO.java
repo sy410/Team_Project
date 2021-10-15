@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import vo.CompanyVO;
+import vo.PmemberVO;
 import vo.ReservationVO;
 
 @Repository
@@ -15,6 +17,11 @@ public class ReservationDAO {
 	private SqlSession sqlSession;
 	
 	private static final String NS = "one.mapper.ReservationMapper.";
+	
+	// ** selectPm
+	public PmemberVO selectPm(PmemberVO vo) {
+		return sqlSession.selectOne(NS+"selectPm", vo);
+	} //selectPm
 	
 	// ** selectList
 	public List<ReservationVO> selectList() {

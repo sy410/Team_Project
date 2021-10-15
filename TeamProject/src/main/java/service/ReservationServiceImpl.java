@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import util.ReservationDAO;
+import vo.CompanyVO;
+import vo.PmemberVO;
 import vo.ReservationVO;
 
 @Service
@@ -15,9 +17,15 @@ public class ReservationServiceImpl implements ReservationService {
 	ReservationDAO dao;
 	
 	@Override
+	public PmemberVO selectPm(PmemberVO vo) {
+		return dao.selectPm(vo);
+	} //selectPm
+	
+	@Override
 	public List<ReservationVO> selectList() {
 		return dao.selectList();
 	} //selectList()
+	
 	@Override
 	public ReservationVO selectOne(ReservationVO vo) {
 		return dao.selectOne(vo);

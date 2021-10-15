@@ -31,7 +31,6 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/inCheck.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -172,23 +171,18 @@ function addHypen(obj) {
 }
 
 </script>
+<style>
+.eMessage { font-size: x-small;
+			font-style: italic; }
+</style>
 </head>
 <body>
-
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" href="joinf">일반회원</a>
-  </li>
-   <li class="nav-item">
-    <a class="nav-link"  href="cjoinf">사업자회원</a>
-  </li>
-</ul>
 <div class="container-fluid px-3">
 	<div class="row min-vh-100">
 		<div class="col-md-8 col-lg-6 col-xl-5 d-flex align-items-center">
 			<div class="w-100 py-5 px-md-5 px-xxl-6 position-relative">
             	<div class="mb-4"><img class="img-fluid mb-4" src="resources/img/logo-square.svg" alt="..." style="max-width: 4rem;">
-              	<h2>Sign up</h2>
+              	<h2>일반 회원가입</h2>
               	<p class="text-muted">Welcome</p>
             </div>
 <form action="join" method="post" class="form-validate">
@@ -196,43 +190,43 @@ function addHypen(obj) {
 		<label class="form-label" for="id"> 아이디 <label style="color: red">*</label></label>
         <input class="form-control" name="id" id="id" type="text" oninput="checkId()" required>
         <span id="checkM" class="trueM falseM"></span>
-		<span id="iMessage" class="eMessage"></span>
+		<span id="iMessage" class="eMessage form-label text-danger"></span>
     </div>
 	<div class="mb-4">
 		<label class="form-label" for="pw"> 비밀번호 <label style="color: red">*</label></label>
         <input class="form-control" name="pw" id="pw" type="password" required>
-    	<span id="pMessage" class="eMessage"></span>
+    	<span id="pMessage" class="eMessage form-label text-danger"></span>
     </div>
 	<div class="mb-4">
 		<label class="form-label" for="checkpw"> 비밀번호 재확인 <label style="color: red">*</label></label>
 		<input class="form-control" name="checkpw" id="checkpw" type="password" required>
-    	<span id="cMessage" class="eMessage"></span>
+    	<span id="cMessage" class="eMessage form-label text-danger"></span>
     </div>
 	<div class="mb-4">
 		<label class="form-label" for="name"> 이름 <label style="color: red">*</label></label>
         <input class="form-control" name="name" id="name" type="text" required>
-		<span id="nMessage" class="eMessage"></span>
+		<span id="nMessage" class="eMessage form-label text-danger"></span>
     </div>
 	<div class="mb-4">
 		<label class="form-label" for="birth"> 생년월일 <label style="color: red">*</label></label>
         <input class="form-control" name="birth" id="birth" type="date" required>
-		<span id="bMessage" class="eMessage"></span>
+		<span id="bMessage" class="eMessage form-label text-danger"></span>
     </div>
     <div class="mb-4">
 		<label class="form-label" for="tel"> 연락처 <label style="color: red">*</label></label>
         <input class="form-control" name="tel" id="tel" type="tel" onKeyup = "addHypen(this)" maxlength="13" placeholder="하이픈(-) 없이 입력하세요." required>
-		<span id="tMessage" class="eMessage"></span>
+		<span id="tMessage" class="eMessage form-label text-danger"></span>
     </div>
 	<div class="mb-4">
 		<label class="form-label" for="email"> 이메일 <label style="color: red">*</label></label>
 		<input class="form-control" name="email" id="email" type="email" required>
-   		<span id="emMessage" class="eMessage"></span>
+   		<span id="emMessage" class="eMessage form-label text-danger"></span>
     </div>
     <div class="mb-4">
 		<label class="form-label" for="addr"> 주소 </label>
 		<input class="form-control btn-outline-primary" type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
-		<input class="form-control" name="postcode" id="postcode" type="text" placeholder="우편번호" size="10">
-		<input class="form-control" name="addr" id="addr" type="text" placeholder="주소" size="45">
+		<input class="form-control" name="postcode" id="postcode" type="text" placeholder="우편번호">
+		<input class="form-control" name="addr" id="addr" type="text" placeholder="주소">
 		<input class="form-control" name="detailAddr" id="detailAddr" type="text" placeholder="상세주소">
 		<input class="form-control" name="extraAddr" id="extraAddr" type="hidden" placeholder="참고항목">
 	<script>

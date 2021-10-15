@@ -105,3 +105,19 @@ function emCheck() {
 	   	return true;
 	}
  } //emCheck
+
+/* QnA */
+function bqpwCheck(){
+	var bqpw=$('#bqpw').val();
+	if (bqpw.length<4) {
+		$('#pwMessage').html('비밀번호는 4글자 이상 입력하세요.');
+		return false;
+	}else if (bqpw.replace(/[0-9].[!-*]/gi,'').length >= bqpw.length) {
+		$('#pwMessage').html('비밀번호는 숫자.특수문자 로 입력하세요.');
+		return false;
+	}else {
+		$('#pwMessage').html('');
+		return true;
+	}
+} //bqpwCheck
+

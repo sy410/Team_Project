@@ -1,13 +1,13 @@
 package util;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import criTest.SearchCriteria;
+import vo.NoticeVO;
 import vo.PmemberVO;
 
 @Repository
@@ -17,27 +17,14 @@ public class PmemberDAO {
 	private SqlSession sqlSession;	
 	private static final String NS = "one.mapper.PmemberMapper.";
 	
-	
-
-	
-	
-	
-	
+/*	public List<NoticeVO> myboard() {
+		return sqlSession.selectList(NS+"myboard");
+	}*/
 	
 	// ** ID 중복 확인
 	public int idCheck(PmemberVO vo) {
 		return sqlSession.selectOne(NS+"idCheck", vo);
 	}
-	
-	
-	
-	// ** 패스워드 확인
-	public int passCheck(PmemberVO vo) {
-		int result = sqlSession.selectOne(NS+"passCheck", vo);
-		return result;
-	}
-	
-
 	
 	// ** ID 찾기 ------------------------------
 	public PmemberVO pFindId(PmemberVO vo) {
@@ -51,9 +38,6 @@ public class PmemberDAO {
 	public void updatePw(PmemberVO vo){
 		sqlSession.update(NS+"updatePw", vo);
 	} // --------------------------------------
-
-	
-	
 	
 	
 	// ** SearchPageList -----------------------

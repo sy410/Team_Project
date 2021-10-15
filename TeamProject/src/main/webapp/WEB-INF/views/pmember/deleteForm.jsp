@@ -76,28 +76,6 @@ $ (function (){
         </div>
       </div>
     </div>
-    <button class="btn btn-primary btn-sm d-none d-lg-block" type="button" data-bs-toggle="collapse" data-bs-target="#style-switch" id="style-switch-button">
-      <svg class="svg-icon svg-icon-md">
-        <use xlink:href="#configuration-1"> </use>
-      </svg>
-    </button>
-    <div class="collapse" id="style-switch">
-      <div class="p-4">
-        <h6 class="text-uppercase mb-4">Select theme colour</h6>
-        <form class="mb-3">
-          <select class="form-select style-switch-select" name="colour" id="colour">
-            <option value="">select colour variant</option>
-            <option value="resources/css/style.default.222cad84.css">blue</option>
-            <option value="resources/css/style.pink.8e944c0e.css">pink</option>
-            <option value="resources/css/style.green.dbb19695.css">green</option>
-            <option value="resources/css/style.red.25441cbe.css">red</option>
-            <option value="resources/css/style.violet.46bbf1a3.css">violet</option>
-            <option value="resources/css/style.sea.e2d18689.css">sea</option>
-          </select>
-        </form>
-        <p class="text-muted text-xs mb-0">Stylesheet switching in this demo is done with JavaScript and can cause a blink while page loads. This will not happen in your production code.</p>
-      </div>
-    </div>
     <!-- JavaScript files-->
     <script>
       // ------------------------------------------------------- //

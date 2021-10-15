@@ -1,13 +1,13 @@
 package service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import criTest.SearchCriteria;
 import util.PmemberDAO;
+import vo.NoticeVO;
 import vo.PmemberVO;
 
 @Service
@@ -15,26 +15,16 @@ public class PmemberServicelmpl implements PmemberService {
 	@Autowired
 	PmemberDAO dao;
 	
-
-		
-	
-	
-	
+	/*@Override
+	public List<NoticeVO> myboard() {
+		return dao.myboard();
+	}*/
 	
 	// ** ID 중복확인
 	@Override
 	public int idCheck(PmemberVO vo) {
 		return dao.idCheck(vo);
 	}
-	
-	
-	// ** 패스워드 확인
-	@Override
-	public int passCheck(PmemberVO vo) {
-		int result = dao.passCheck(vo);
-		return result;
-	}
-	
 	
 	// ** ID 찾기
 	@Override
@@ -53,8 +43,6 @@ public class PmemberServicelmpl implements PmemberService {
 	}
 	
 	
-	
-	
 	// ** SearchPageList 
 	@Override
 	public int searchRowsCount(SearchCriteria cri) {
@@ -64,7 +52,6 @@ public class PmemberServicelmpl implements PmemberService {
 	public List<PmemberVO> searchList(SearchCriteria cri) {
 		return dao.searchList(cri);
 	}
-	
 
 	
 	@Override

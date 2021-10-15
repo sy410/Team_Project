@@ -18,11 +18,6 @@ public class NoticeDAO {
 	SqlSession sqlSession;
 	private static final String NS="one.mapper.NoticeMapper.";
 	
-	// ** Ajax titleReviewList
-	public List<NoticeVO> titleNDetail(NoticeVO vo) {
-		return sqlSession.selectList(NS+"titleNDetail",vo);
-	}
-	
 	// PageList2. => ver02 : SearchPageList---------------
 	// => mapper 에 searchRowsCount, searchList 추가
 	public int searchRowsCount(SearchCriteria cri) {
