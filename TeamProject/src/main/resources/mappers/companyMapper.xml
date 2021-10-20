@@ -35,7 +35,7 @@
 
 
 
-<!-- ** PageList 2. searchList 기능 ( Sql문 추가 )  -->
+	<!-- ** SearchPageList(Sql문 추가)-->
 	<select id="searchRowsCount" resultType="int">
 	<![CDATA[
 		select count(*) from company where ( cno <> '0000000000' ]]>
@@ -52,18 +52,18 @@
 		where rnum between #{sno} and #{eno}
 	</select> -->
 	
-	<!-- ** PageList 1.-->
-	<select id="totalRowCount" resultType="int">
-	  <![CDATA[
-		select count(*) from company where cno <> '0000000000' ]]>
-	</select>
 	
-	<select id="pageList" resultType="vo.CompanyVO">
+	<select id="searchList" resultType="vo.CompanyVO">
 		select cno,cpw,cname,ctype,cinfo,caddr,cdate,cdate_s,cdate_e,period_s,
 		period_e,ctel,cprice,csite,cpark,comuploadfile from
 		(select c.* , ROW_NUMBER() OVER(order by cno) rnum from company c where cno !='0000000000')
 		where rnum between #{sno} and #{eno}
 	</select>
+	
+
+	
+
+	
 	
 	<select id="selectList" resultType="vo.CompanyVO">
 		select * from company where cno != '0000000000'

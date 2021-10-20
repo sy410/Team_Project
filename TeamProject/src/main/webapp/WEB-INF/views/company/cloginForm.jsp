@@ -96,7 +96,7 @@ function comInCheck() {
               </div>
               <!-- Submit-->
               <div class="d-grid">
-        	    <input type="submit" value="로그인" class="btn btn-lg btn-primary" onclick="return comInCheck()">&nbsp;
+        	    <input type="submit" value="LOGIN" class="btn btn-lg btn-primary" onclick="return comInCheck()">&nbsp;
               </div>
               <hr class="my-4">
               <p class="text-center"><small class="text-muted text-center">아직 계정이 없으신가요? <a href="cjoinf">&nbsp;&nbsp;&nbsp;사업자회원 회원가입</a></small></p>
@@ -130,20 +130,22 @@ function comInCheck() {
       injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');      
 	</script>
 	
-<!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
-<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Magnific Popup - Lightbox for the gallery-->
-<script src="resources/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-<!-- Smooth scroll-->
-<script src="resources/vendor/smooth-scroll/smooth-scroll.polyfills.min.js"></script>
-<!-- Bootstrap Select-->
-<script src="resources/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
-<!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
-<script src="resources/vendor/object-fit-images/ofi.min.js"></script>
-<!-- Swiper Carousel                       -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
-<script>var basePath = ''</script>
-<!-- Main Theme JS file    -->
-<script src="resources/js/theme.js"></script>
-</body>
+    <!-- jQuery-->
+    <script src="resources/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
+    <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Magnific Popup - Lightbox for the gallery-->
+    <script src="resources/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- Smooth scroll-->
+    <script src="resources/vendor/smooth-scroll/smooth-scroll.polyfills.min.js"></script>
+    <!-- Bootstrap Select-->
+    <script src="resources/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
+    <script src="resources/vendor/object-fit-images/ofi.min.js"></script>
+    <!-- Swiper Carousel                       -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
+    <script>var basePath = ''</script>
+    <!-- Main Theme JS file    -->
+    <script src="resources/js/theme.js"></script>
+  </body>
 </html>

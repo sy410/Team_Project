@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import criTest.PageMaker;
+import criTest.SearchCriteria;
 import service.CompanyService;
 import vo.CompanyVO;
 
@@ -28,6 +30,25 @@ public class CompanyController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	
+    // ** Member SearchCriteria PageList
+	@RequestMapping(value="/comlist")
+	public ModelAndView comlist(ModelAndView mv, SearchCriteria cri, PageMaker pageMaker) {
+		// 1) Criteria 처리
+		cri.setSnoEno();
+		
+		// 2) 서비스 처리
+		mv.addObject("Banana",service.searchList(cri));	
+		
+		// 3) PageMaker 처리
+		pageMaker.setCri(cri);
+		pageMaker.setTotalRowCount(service.searchRowsCount(cri));
+		
+		System.out.println("*** pageMaker =>"+pageMaker);
+		mv.addObject("pageMaker",pageMaker);
+		mv.setViewName("company/cCriList");
+		return mv;
+	} //cCriList
 	
 	// ** Image DownLoad
 	@RequestMapping(value = "/dnload")
@@ -163,6 +184,48 @@ public class CompanyController {
 		return mv;
 	}//cinfo_jeju
 	
+	// ** Company Content : 강원
+	@RequestMapping(value = "/ccontent_gangwon")
+	public ModelAndView ccontent_gangwon(ModelAndView mv) {
+		
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comContent/comContent_Gangwon");
+		return mv;
+	}//cinfo_Gangwon
+	
+	// ** Company Content : 경기
+	@RequestMapping(value = "/ccontent_gyeonggi")
+	public ModelAndView ccontent_gyeonggi(ModelAndView mv) {
+		
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comContent/comContent_Gyeonggi");
+		return mv;
+	}//cinfo_Gyeonggi
+	
+	// ** Company Content : 대구
+	@RequestMapping(value = "/ccontent_daegu")
+	public ModelAndView ccontent_daegu(ModelAndView mv) {
+		
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comContent/comContent_Daegu");
+		return mv;
+	}//cinfo_daegu
+	
 	// ** Company Content : 문화공간별 상세보기 (로그인없이도 보기가능)
 	@RequestMapping(value = "/cdetail01")
 	public ModelAndView cdetail01(HttpServletRequest request, ModelAndView mv, CompanyVO vo, RedirectAttributes rttr) {
@@ -243,6 +306,7 @@ public class CompanyController {
 			mv.setViewName("company/cloginForm");
 		}		
 		return mv;
+		
 	}//cdetail :내정보보기
 	
 	// ** 마이페이지 : 내정보수정하기

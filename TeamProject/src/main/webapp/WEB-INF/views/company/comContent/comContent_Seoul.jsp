@@ -240,41 +240,32 @@ $(function() {
 <%--          </c:if> --%>
 	     </c:forEach>
 	     </div>
-       <!-- Paging : 업체정보 미리보기 ********수정해야함 -->
-        <nav aria-label="Page navigation example">
-        <ul class="pagination pagination-template d-flex justify-content-center">
-        	<li class="page-item">
-          		<c:if test="${pageMaker.prev && pageMaker.spageNo>1}">
-					<a class="page-link" href="compaging${pageMaker.makeQuery(1)}">FF</a>&nbsp;
-					<a href="compaging${pageMaker.makeQuery(pageMaker.spageNo-1)}">Prev</a>
-				</c:if>
-				
-				<!-- 2) sPageNo ~ ePageNo 까지, displayPageNo 만큼 표시 -->
-				<c:forEach var="i" begin="${pageMaker.spageNo}" end="${pageMaker.epageNo}">
-					<c:if test="${i==pageMaker.cri.currPage}">
-						<font size="5" color="Orange">${i}</font>&nbsp;
-					</c:if>
-					<c:if test="${i!=pageMaker.cri.currPage}">
-						<a href="compaging${pageMaker.makeQuery(i)}">${i}</a>&nbsp;
-					</c:if>
-				</c:forEach> 
-				<!-- 3) Next >  ,  Last >>  처리 -->
-				<c:if test="${pageMaker.next && pageMaker.epageNo>0}">
-					<a href="compaging${pageMaker.makeQuery(pageMaker.epageNo+1)}">Next</a>&nbsp;
-					<a href="compaging${pageMaker.makeQuery(pageMaker.lastPageNo)}">LL</a>&nbsp;&nbsp;
-				</c:if>
-				
-				
-			<!-- 
-			         <ul class="pagination pagination-template d-flex justify-content-center">
-            <li class="page-item"><a class="page-link" href="#"> <i class="fa fa-angle-left"></i></a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#"> <i class="fa fa-angle-right"></i></a></li>
-          </ul> -->
-          </ul>
-        </nav>
+    <!-- Pagination : Criteria 적용 -->
+    <nav aria-label="Page navigation example">
+       <ul class="pagination pagination-template d-flex justify-content-center">
+	<!-- 1) First << , Prev < 처리 -->
+	<c:if test="${pageMaker.prev && pageMaker.spageNo > 1}">
+		<li class="page-item"><a class="page-link" href="ccontent_seoul${pageMaker.searchQuery(1)}"><<</a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_seoul${pageMaker.searchQuery(pageMaker.spageNo-1)}"><i class="fa fa-angle-left"></i></a></li>
+	</c:if>
+	
+	<!-- 2) sPageNo ~ ePageNo까지, displayPageNo만큼 표시 -->
+	<c:forEach var="i" begin="${pageMaker.spageNo}" end="${pageMaker.epageNo}">
+		<c:if test="${i == pageMaker.cri.currPage}">
+			<li class="page-item active"><a class="page-link">${i}</a></li>
+		</c:if>
+		<c:if test ="${i != pageMaker.cri.currPage }">
+			<li class="page-item"><a class="page-link" href ="ccontent_seoul${pageMaker.searchQuery(i)}">${i}</a></li>
+		</c:if>
+	</c:forEach>
+	
+	<!-- 3) Next > , Last >> 처리 -->
+	<c:if test="${pageMaker.next && pageMaker.epageNo > 0}">
+		<li class="page-item"><a class="page-link" href="ccontent_seoul${pageMaker.searchQuery(pageMaker.epageNo+1)}"><i class="fa fa-angle-right"></i></a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_seoul${pageMaker.searchQuery(pageMaker.lastPageNo)}">>></a></li>
+	</c:if>
+   </ul>
+  </nav>
      </div>
    </section>
    <!-- Footer-->

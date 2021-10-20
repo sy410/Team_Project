@@ -151,7 +151,7 @@ $(function() {
     <section class="py-6">
       <div class="container">
         <div class="row mb-5">
-          <!-- 1. seoul-->
+          <!-- 1. Seoul-->
           <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
             <div class="card shadow border-0 h-100"><a href="ccontent_seoul"><img class="img-fluid card-img-top" src="resources/img/seoul_main.jpg" alt="..." width="200"/></a>
               <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Your Seoul Goes On </p>
@@ -161,7 +161,7 @@ $(function() {
               </div>
             </div>
           </div>
-          <!-- 2. Kangwon-->
+          <!-- 2. Busan-->
           <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
             <div class="card shadow border-0 h-100"><a href="ccontent_busan"><img class="img-fluid card-img-top" src="resources/img/busan_main.jpg" alt="..." width="200"/></a>
               <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Dynamic BUSAN </p>
@@ -171,7 +171,7 @@ $(function() {
               </div>
             </div>
           </div>
-          <!-- 3. seoul-->
+          <!-- 3. Jeju-->
           <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
             <div class="card shadow border-0 h-100"><a href="ccontent_jeju"><img class="img-fluid card-img-top" src="resources/img/jeju_main.jpg" alt="..." width="200"/></a>
               <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Only Jeju</p>
@@ -180,7 +180,37 @@ $(function() {
                 <p class="my-2 text-muted text-sm">섬 전체가 하나의 거대한 관광자원인 제주도. 파도가 넘보는 주상절리와 바다 위 산책로인 용머리 해안은 제주에서만 볼 수 있는 천혜의 자연경관으로 손꼽힙니다. </p><a class="btn btn-link ps-0" href="ccontent_jeju">제주지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
               </div>
             </div>
-          </div>         
+          </div>
+          <!-- 4. Gangwon-->
+          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
+            <div class="card shadow border-0 h-100"><a href="ccontent_gangwon"><img class="img-fluid card-img-top" src="resources/img/gangwon_main.jpg" alt="..." width="200"/></a>
+              <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Do you want to go to Gangwon with me? </p>
+                <h5 class="my-2"><a class="text-dark" href="ccontent_gangwon">강원 Gangwon</a></h5>
+                <p class="text-gray-500 text-sm my-3"><i class="fas fa-map-pin me-2"></i> 강릉 · 속초 · 춘천 · 고성</p>
+                <p class="my-2 text-muted text-sm">빼어난 자연경관으로 유명한 강원도. 래프팅, 패러글라이딩, 라이딩, 스키 등 계절마다 자연을 누리며 각종 레저스포츠를 즐길 수 있습니다. </p><a class="btn btn-link ps-0" href="ccontent_gangwon">강원지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
+              </div>
+            </div>
+          </div>    
+          <!-- 5. Gyeonggi-->
+          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
+            <div class="card shadow border-0 h-100"><a href="ccontent_gyeonggi"><img class="img-fluid card-img-top" src="resources/img/gyeonggi_main.jpg" alt="..." width="200"/></a>
+              <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Love, travel, Gyeonggi </p>
+                <h5 class="my-2"><a class="text-dark" href="ccontent_gyeonggi">경기 Gyeonggi</a></h5>
+                <p class="text-gray-500 text-sm my-3"><i class="fas fa-map-pin me-2"></i> 수원 · 여주 · 가평 · 양평</p>
+                <p class="my-2 text-muted text-sm">문화· 예술· 레저 등 모든 걸 아우르는 경기도. 서울 근교에 위치해 접근성이 좋고 다양한 문화생활을 즐길 수 있어서 주말을 이용한 나들이가 가능합니다.</p><a class="btn btn-link ps-0" href="ccontent_gyeonggi">경기지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <!-- 6. Daegu-->
+          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
+            <div class="card shadow border-0 h-100"><a href="ccontent_daegu"><img class="img-fluid card-img-top" src="resources/img/daegu_main.jpg" alt="..." width="200"/></a>
+              <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Traveling to Daegu modern times </p>
+                <h5 class="my-2"><a class="text-dark" href="ccontent_daegu">대구 Daegu</a></h5>
+                <p class="text-gray-500 text-sm my-3"><i class="fas fa-map-pin me-2"></i> 남구 · 달서구 · 중구 · 수성구</p>
+                <p class="my-2 text-muted text-sm">우리나라에서 가장 더운 지역 대구. 하지만 매년 여름 열리는 치맥 페스티벌과 함께라면 더위도 문제없습니다. </p><a class="btn btn-link ps-0" href="ccontent_daegu">대구지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
+              </div>
+            </div>
+          </div>        
         </div>
       </div>
     </section>

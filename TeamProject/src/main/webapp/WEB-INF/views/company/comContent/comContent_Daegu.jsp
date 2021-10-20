@@ -146,7 +146,7 @@ $(function() {
 					};    
 			var map = new kakao.maps.Map(mapContainer, mapOption); 
 			var geocoder = new kakao.maps.services.Geocoder();
-			var address = '부산 해운대' ;
+			var address = '대구' ;
 			var description = '' ;
 			
 			geocoder.addressSearch(address, function(result, status) { 
@@ -165,13 +165,13 @@ $(function() {
    </section>
    <section class="py-5 bg-gray-100 shadow">
      <div class="container">
-       <h1>부산광역시</h1><h4 class="text-gray-600">Busan</h4> 
-       <p class="lead mb-5 text-gray-600 fs-5">우리나라 제2의 수도 부산광역시. 부산 대표 관광지로 손꼽히는 해운대는 밤에는 마린시티의 야경이 더해져 더욱 화려한 해변이 됩니다.<br>감천문화마을은 사진 찍기에 좋으며, 매해 가을마다 개최되는 아시아 최대 규모의 영화제인 부산국제영화제와 함께 부산의 구석구석을<br>즐겨보는 것도 좋은 경험이 될 것입니다. 전통시장 투어가 있을 만큼 먹거리가 가득한 부산의 맛기행은 필수!</p>
+       <h1>대구광역시</h1><h4 class="text-gray-600">Daegu</h4> 
+       <p class="lead mb-5 text-gray-600 fs-5">우리나라에서 가장 더운 지역 대구. 하지만 매년 여름 열리는 치맥 페스티벌과 함께라면 더위도 문제없다.<br>놀이동산 이월드는 가족과 함께 나들이하기에 좋으며, 두류공원도 산책코스로 제격! 음악 분수쇼로 유명한 수성못과<br>독특한 외관이 인상적인 전시공간 디아크는 대구의 야경 명소로 손꼽힌다. 우리나라 3대 시장인 서문시장 야시장도 대구의 대표 핫플레이스!</p>
        <ul class="nav nav-pills-custom">
-         <li class="nav-item"><a class="nav-link" href="#">부산중구</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">해운대</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">수영</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">기장</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">남구</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">달서구</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">중구</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">수성구</a></li>
        </ul>
      </div>
    </section>
@@ -244,8 +244,8 @@ $(function() {
        <ul class="pagination pagination-template d-flex justify-content-center">
 	<!-- 1) First << , Prev < 처리 -->
 	<c:if test="${pageMaker.prev && pageMaker.spageNo > 1}">
-		<li class="page-item"><a class="page-link" href="ccontent_busan${pageMaker.searchQuery(1)}"><<</a></li>
-		<li class="page-item"><a class="page-link" href="ccontent_busan${pageMaker.searchQuery(pageMaker.spageNo-1)}"><i class="fa fa-angle-left"></i></a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_daegu${pageMaker.searchQuery(1)}"><<</a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_daegu${pageMaker.searchQuery(pageMaker.spageNo-1)}"><i class="fa fa-angle-left"></i></a></li>
 	</c:if>
 	
 	<!-- 2) sPageNo ~ ePageNo까지, displayPageNo만큼 표시 -->
@@ -254,14 +254,14 @@ $(function() {
 			<li class="page-item active"><a class="page-link">${i}</a></li>
 		</c:if>
 		<c:if test ="${i != pageMaker.cri.currPage }">
-			<li class="page-item"><a class="page-link" href ="ccontent_busan${pageMaker.searchQuery(i)}">${i}</a></li>
+			<li class="page-item"><a class="page-link" href ="ccontent_daegu${pageMaker.searchQuery(i)}">${i}</a></li>
 		</c:if>
 	</c:forEach>
 	
 	<!-- 3) Next > , Last >> 처리 -->
 	<c:if test="${pageMaker.next && pageMaker.epageNo > 0}">
-		<li class="page-item"><a class="page-link" href="ccontent_busan${pageMaker.searchQuery(pageMaker.epageNo+1)}"><i class="fa fa-angle-right"></i></a></li>
-		<li class="page-item"><a class="page-link" href="ccontent_busan${pageMaker.searchQuery(pageMaker.lastPageNo)}">>></a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_daegu${pageMaker.searchQuery(pageMaker.epageNo+1)}"><i class="fa fa-angle-right"></i></a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_daegu${pageMaker.searchQuery(pageMaker.lastPageNo)}">>></a></li>
 	</c:if>
    </ul>
   </nav>

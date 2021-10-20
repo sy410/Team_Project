@@ -146,7 +146,7 @@ $(function() {
 					};    
 			var map = new kakao.maps.Map(mapContainer, mapOption); 
 			var geocoder = new kakao.maps.services.Geocoder();
-			var address = '부산 해운대' ;
+			var address = '강원도 강릉' ;
 			var description = '' ;
 			
 			geocoder.addressSearch(address, function(result, status) { 
@@ -165,13 +165,13 @@ $(function() {
    </section>
    <section class="py-5 bg-gray-100 shadow">
      <div class="container">
-       <h1>부산광역시</h1><h4 class="text-gray-600">Busan</h4> 
-       <p class="lead mb-5 text-gray-600 fs-5">우리나라 제2의 수도 부산광역시. 부산 대표 관광지로 손꼽히는 해운대는 밤에는 마린시티의 야경이 더해져 더욱 화려한 해변이 됩니다.<br>감천문화마을은 사진 찍기에 좋으며, 매해 가을마다 개최되는 아시아 최대 규모의 영화제인 부산국제영화제와 함께 부산의 구석구석을<br>즐겨보는 것도 좋은 경험이 될 것입니다. 전통시장 투어가 있을 만큼 먹거리가 가득한 부산의 맛기행은 필수!</p>
+       <h1>강원도</h1><h4 class="text-gray-600">Gangwon</h4> 
+       <p class="lead mb-5 text-gray-600 fs-5">빼어난 자연경관으로 유명한 강원도. 래프팅, 패러글라이딩, 라이딩, 스키 등 계절마다 자연을 누리며 각종 레저스포츠를 즐길 수 있습니다.<br>그뿐만 아니라, 연말연시가 되면 가장 먼저 떠오르는 정동진은 해돋이 명소로 손꼽히며, 배를 타고 들어가야 하는 남이섬 곳곳에는 운치 있는<br>메타세콰이어길이 있어 데이트 코스로도 유명하다. 호수를 둘러싼 자전거 길을 따라 느긋하게 춘천을 둘러보는 여행도 추천한다.</p>
        <ul class="nav nav-pills-custom">
-         <li class="nav-item"><a class="nav-link" href="#">부산중구</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">해운대</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">수영</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">기장</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">강릉</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">속초</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">춘천</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">고성</a></li>
        </ul>
      </div>
    </section>
@@ -239,13 +239,14 @@ $(function() {
          </div>
 	     </c:forEach>
 	     </div>
+      
     <!-- Pagination : Criteria 적용 -->
     <nav aria-label="Page navigation example">
        <ul class="pagination pagination-template d-flex justify-content-center">
 	<!-- 1) First << , Prev < 처리 -->
 	<c:if test="${pageMaker.prev && pageMaker.spageNo > 1}">
-		<li class="page-item"><a class="page-link" href="ccontent_busan${pageMaker.searchQuery(1)}"><<</a></li>
-		<li class="page-item"><a class="page-link" href="ccontent_busan${pageMaker.searchQuery(pageMaker.spageNo-1)}"><i class="fa fa-angle-left"></i></a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_gangwon${pageMaker.searchQuery(1)}"><<</a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_gangwon${pageMaker.searchQuery(pageMaker.spageNo-1)}"><i class="fa fa-angle-left"></i></a></li>
 	</c:if>
 	
 	<!-- 2) sPageNo ~ ePageNo까지, displayPageNo만큼 표시 -->
@@ -254,14 +255,14 @@ $(function() {
 			<li class="page-item active"><a class="page-link">${i}</a></li>
 		</c:if>
 		<c:if test ="${i != pageMaker.cri.currPage }">
-			<li class="page-item"><a class="page-link" href ="ccontent_busan${pageMaker.searchQuery(i)}">${i}</a></li>
+			<li class="page-item"><a class="page-link" href ="ccontent_gangwon${pageMaker.searchQuery(i)}">${i}</a></li>
 		</c:if>
 	</c:forEach>
 	
 	<!-- 3) Next > , Last >> 처리 -->
 	<c:if test="${pageMaker.next && pageMaker.epageNo > 0}">
-		<li class="page-item"><a class="page-link" href="ccontent_busan${pageMaker.searchQuery(pageMaker.epageNo+1)}"><i class="fa fa-angle-right"></i></a></li>
-		<li class="page-item"><a class="page-link" href="ccontent_busan${pageMaker.searchQuery(pageMaker.lastPageNo)}">>></a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_gangwon${pageMaker.searchQuery(pageMaker.epageNo+1)}"><i class="fa fa-angle-right"></i></a></li>
+		<li class="page-item"><a class="page-link" href="ccontent_gangwon${pageMaker.searchQuery(pageMaker.lastPageNo)}">>></a></li>
 	</c:if>
    </ul>
   </nav>

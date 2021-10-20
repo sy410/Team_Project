@@ -33,8 +33,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   </head>
   <body style="padding-top: 72px;">
-    <header class="header">
-<!-- Navbar-->
+<header class="header">
+ <!-- Navbar-->
  <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
    <div class="container-fluid">
      <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
@@ -42,10 +42,10 @@
                
      <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
      <!-- Navbar Collapse -->
+     <c:if test="${loginID!=null}"> ${loginName}님 안녕하세요.</c:if>
      <div class="collapse navbar-collapse" id="navbarCollapse">
        <ul class="navbar-nav ms-auto">
-         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
-         </li>
+         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a></li>
        	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
        	 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               게시판메뉴</a>
@@ -56,30 +56,14 @@
     	         	<a class="dropdown-item" href="qlist">QnA</a>
            </div>
          </li>
-         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              회원메뉴</a>
-          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
-           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-             	<c:if test="${loginCno==null && loginID==null}">
-             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
-	             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
-    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
-    	         </c:if>
-    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
-    	         <c:if test="${loginCno!=null && loginID==null}">
-    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
-    	         	<a class="dropdown-item" href="cinfo_main">마이페이지</a>&nbsp;&nbsp;
-	   	         	<a class="dropdown-item" href="cinfo_detail">내정보보기</a>&nbsp;&nbsp;
-					<a class="dropdown-item" href="cinfo_cinfo">내정보수정</a>&nbsp;&nbsp;
-				 </c:if>
-		   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 --> 
-    	         <c:if test="${loginCno==null && loginID!=null}">
-    	         <h6 class="dropdown-header fw-normal">회원 메뉴</h6>
-    	        	<a class="dropdown-item" href="paccountf">마이페이지</a>&nbsp;&nbsp;
-	   	         	<a class="dropdown-item" href="pdetail">내정보보기</a>&nbsp;&nbsp;
-				 </c:if>
-           </div>
-         </li>
+    	 <!-- 고객별 메뉴 01: 사업자만 로그인 --> 
+    	 <c:if test="${loginCno!=null && loginID==null}">
+				<li class="nav-item"><a class="nav-link" href="cinfo_main">마이페이지</a></li>
+		 </c:if>
+		 <!-- 고객별 메뉴 02: 일반회원만 로그인 --> 
+    	 <c:if test="${loginCno==null && loginID!=null}">
+	   	        <li class="nav-item"><a class="nav-link" href="paccountf">마이페이지</a></li>
+		 </c:if>
          <!-- 관리자일때만 메뉴확인가능 -->
 		 <c:if test="${loginID == 'admin'}">
               <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,7 +73,7 @@
          </c:if>
 		 <!-- 로그인 전용 사용가능 메뉴 -->
 		 <c:if test="${loginID!=null || loginCno!=null}">
-	 			<li class="nav-item"><a class="nav-link" href="logout">LOGOUT</a></li>
+	 			<li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
          </c:if>
          <!-- 비로그인 사용가능 메뉴-->
          <c:if test="${loginCno==null && loginID==null}">
@@ -100,8 +84,7 @@
      </div>
    </div>
  </nav>
-      <!-- /Navbar -->
-    </header>
+</header>
     <section class="py-5">
       <div class="container">
         <!-- Breadcrumbs -->
